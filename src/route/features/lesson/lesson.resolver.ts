@@ -12,7 +12,7 @@ import {
   AssignStudentToLessonValidate,
   LessonValidate,
 } from './lesson.validate';
-import { StudentService } from 'src/student/student.service';
+import { StudentService } from '../student/student.service';
 import { Lesson } from './lesson.entity';
 
 @Resolver((of) => LessonType)

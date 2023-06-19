@@ -1,16 +1,12 @@
 import { Module } from '@nestjs/common';
-import { LessonModule } from './lesson/lesson.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Lesson } from './lesson/lesson.entity';
+import { Lesson } from './route/features/lesson/lesson.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { StudentModule } from './student/student.module';
-import { Student } from './student/student.entity';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { User } from './user/entities/user.entity';
-import { UploadModule } from './upload/upload.module';
+import { Student } from './route/features/student/student.entity';
+import { User } from './route/features/user/entities/user.entity';
+import { RouteModule } from './route/route.module';
 
 @Module({
   imports: [
@@ -40,11 +36,7 @@ import { UploadModule } from './upload/upload.module';
       inject: [ConfigService],
       imports: [ConfigModule],
     }),
-    LessonModule,
-    StudentModule,
-    UserModule,
-    AuthModule,
-    UploadModule,
+    RouteModule,
   ],
   controllers: [],
   providers: [],

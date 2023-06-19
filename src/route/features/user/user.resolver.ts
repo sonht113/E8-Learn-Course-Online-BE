@@ -3,7 +3,7 @@ import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 
 @Resolver(() => UserDto)
 export class UserResolver {

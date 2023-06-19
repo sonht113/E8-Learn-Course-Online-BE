@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Lesson } from './lesson.entity';
 import { Repository } from 'typeorm';
-import { AssignStudentToLessonValidate } from 'src/lesson/lesson.validate';
+import { AssignStudentToLessonValidate } from './lesson.validate';
 import { LessonValidate } from './lesson.validate';
 
 @Injectable()
