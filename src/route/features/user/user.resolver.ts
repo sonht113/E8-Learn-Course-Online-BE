@@ -17,8 +17,8 @@ export class UserResolver {
 
   @Query(() => UserDto, { name: 'user' })
   @UseGuards(JwtAuthGuard)
-  user(@Args('username') username: string) {
-    return this.userService.getUser(username);
+  userByUsername(@Args('username') username: string) {
+    return this.userService.getUserByUsername(username);
   }
 
   @Mutation(() => UserDto)

@@ -5,6 +5,7 @@ import { LoginResponseDto } from './dto/login-response';
 import { User } from '../features/user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { SignUpUserInputDto } from './dto/signup-user.input';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.userService.getUser(username);
+    const user = await this.userService.getUserByUsername(username);
+
     const valid = await bcrypt.compare(password, user?.password);
     if (user && valid) {
       const { password, ...result } = user;
@@ -25,7 +27,10 @@ export class AuthService {
   }
 
   async login(loginUserInput: LoginUserInputDto): Promise<LoginResponseDto> {
-    const user = await this.userService.getUser(loginUserInput.username);
+    const user = await this.userService.getUserByUsername(
+      loginUserInput.username,
+    );
+
     const { password, ...result } = user;
 
     return {
@@ -37,13 +42,16 @@ export class AuthService {
     };
   }
 
-  async signup(loginUserInput: LoginUserInputDto): Promise<User> {
-    const user = await this.userService.getUser(loginUserInput.username);
+  async signup(signupUserInput: SignUpUserInputDto): Promise<User> {
+    const user = await this.userService.getUserByUsername(
+      signupUserInput.username,
+    );
+
     if (user) {
       throw new Error('User already exists!');
     }
 
-    const password = await bcrypt.hash(loginUserInput.password, 10);
-    return this.userService.createUser({ ...loginUserInput, password });
+    const password = await bcrypt.hash(signupUserInput.password, 10);
+    return this.userService.createUser({ ...signupUserInput, password });
   }
 }

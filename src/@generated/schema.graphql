@@ -8,7 +8,18 @@ input AssignStudentToLessonValidate {
 }
 
 input CreateUserDto {
+  avatar: String! = ""
+  description: String! = ""
+  email: String! = ""
+  fullname: String!
+  myBlogs: [String!]! = []
+  myCourses: [String!]! = []
+  myFavoriteBlogs: [String!]! = []
+  myFavoriteCourses: [String!]! = []
+  myLearningCourses: [String!]! = []
   password: String!
+  phone: String! = ""
+  role: String! = "customer"
   username: String!
 }
 
@@ -43,7 +54,7 @@ type Mutation {
   createLesson(body: LessonValidate!): Lesson!
   createStudent(body: StudentValidate!): Student!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
-  signup(loginUserInput: LoginUserInputDto!): User!
+  signup(signupUserInput: SignUpUserInputDto!): User!
   uploadMultipleFiles(files: [Upload!]!): [ResponseSingleUpload!]!
   uploadSingleFiles(file: Upload!): ResponseSingleUpload!
 }
@@ -61,6 +72,22 @@ type ResponseSingleUpload {
   url: String!
 }
 
+input SignUpUserInputDto {
+  avatar: String! = ""
+  description: String! = ""
+  email: String! = ""
+  fullname: String!
+  myBlogs: [String!]! = []
+  myCourses: [String!]! = []
+  myFavoriteBlogs: [String!]! = []
+  myFavoriteCourses: [String!]! = []
+  myLearningCourses: [String!]! = []
+  password: String!
+  phone: String! = ""
+  role: String! = "customer"
+  username: String!
+}
+
 type Student {
   firstName: String!
   id: ID!
@@ -76,7 +103,16 @@ input StudentValidate {
 scalar Upload
 
 type User {
+  email: String!
+  fullname: String!
   id: ID!
+  myBlogs: [String!]!
+  myCourses: [String!]!
+  myFavoriteBlogs: [String!]!
+  myFavoriteCourses: [String!]!
+  myLearningCourses: [String!]!
   password: String!
+  phone: String!
+  role: String!
   username: String!
 }

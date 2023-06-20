@@ -15,7 +15,15 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  async getUser(username: string): Promise<User> {
+  async getUserByEmail(email: string): Promise<User> {
+    return this.userRepository.findOne({
+      where: {
+        email,
+      },
+    });
+  }
+
+  async getUserByUsername(username: string): Promise<User> {
     return this.userRepository.findOne({
       where: {
         username,
@@ -23,12 +31,18 @@ export class UserService {
     });
   }
 
+  async getUserByPhone(phone: string): Promise<User> {
+    return this.userRepository.findOne({
+      where: {
+        phone,
+      },
+    });
+  }
+
   async createUser(body: CreateUserDto): Promise<User> {
-    const { username, password } = body;
     return this.userRepository.save({
       id: uuid(),
-      username,
-      password,
+      ...body,
     });
   }
 }
