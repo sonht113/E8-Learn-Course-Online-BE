@@ -7,6 +7,19 @@ input AssignStudentToLessonValidate {
   studentIds: [ID!]!
 }
 
+type Banner {
+  description: String!
+  id: ID!
+  imgUrl: String!
+  title: String!
+}
+
+input BannerInputDto {
+  description: String!
+  imgUrl: String!
+  title: String!
+}
+
 input CreateUserDto {
   avatar: String! = ""
   description: String! = ""
@@ -51,6 +64,7 @@ input LoginUserInputDto {
 type Mutation {
   assignStudentsToLesson(body: AssignStudentToLessonValidate!): Lesson!
   create(body: CreateUserDto!): User!
+  createBanner(body: BannerInputDto!): Banner!
   createLesson(body: LessonValidate!): Lesson!
   createStudent(body: StudentValidate!): Student!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
@@ -60,6 +74,7 @@ type Mutation {
 }
 
 type Query {
+  banners: [Banner!]!
   getAllLesson: [Lesson!]!
   getAllStudent: [Student!]!
   getLessonById(id: String!): Lesson!

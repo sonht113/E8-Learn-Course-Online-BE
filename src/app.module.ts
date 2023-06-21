@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Student } from './route/features/student/student.entity';
 import { User } from './route/features/user/entities/user.entity';
 import { RouteModule } from './route/route.module';
+import { Banner } from './route/features/banner/entities/banner.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { RouteModule } from './route/route.module';
       url: process.env.DB_URI,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [Lesson, Student, User],
+      entities: [Lesson, Student, User, Banner],
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -29,7 +30,7 @@ import { RouteModule } from './route/route.module';
         return {
           autoSchemaFile: './src/@generated/schema.graphql',
           sortSchema: true,
-          playground,
+          playground: playground,
           introspection: playground || introspection,
         };
       },
