@@ -39,6 +39,14 @@ export class UserService {
     });
   }
 
+  async getUserById(id: string): Promise<User> {
+    return this.userRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
   async createUser(body: CreateUserDto): Promise<User> {
     return this.userRepository.save({
       id: uuid(),

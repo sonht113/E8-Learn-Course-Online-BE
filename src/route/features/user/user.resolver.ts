@@ -21,6 +21,12 @@ export class UserResolver {
     return this.userService.getUserByUsername(username);
   }
 
+  @Query(() => UserDto, { name: 'user' })
+  @UseGuards(JwtAuthGuard)
+  userById(@Args('id') id: string) {
+    return this.userService.getUserById(id);
+  }
+
   @Mutation(() => UserDto)
   create(@Args('body') body: CreateUserDto) {
     return this.userService.createUser(body);

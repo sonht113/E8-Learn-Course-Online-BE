@@ -20,6 +20,49 @@ input BannerInputDto {
   title: String!
 }
 
+type Course {
+  categories: [String!]!
+  description: String!
+  id: ID!
+  isFree: Boolean!
+  isPrivate: Boolean!
+  price: String!
+  tags: [String!]!
+  thumbnail: String!
+  title: String!
+  totalChapter: Float!
+  totalDislike: Float!
+  totalLecture: Float!
+  totalLike: Float!
+  totalView: Float!
+  userCreated: User!
+  usersJoined: [User!]!
+}
+
+type CoursePaginateDto {
+  limit: String!
+  page: String!
+  result: [Course!]!
+  totalPage: String!
+}
+
+input CreateCourseInputDto {
+  categories: [String!]!
+  description: String!
+  isPrivate: Boolean!
+  price: String! = "0"
+  tags: [String!]!
+  thumbnail: String!
+  title: String!
+  totalChapter: Float! = 0
+  totalDislike: Float! = 0
+  totalLecture: Float! = 0
+  totalLike: Float! = 0
+  totalView: Float! = 0
+  userCreated: ID! = ""
+  usersJoined: [String!]! = []
+}
+
 input CreateUserDto {
   avatar: String! = ""
   description: String! = ""
@@ -65,6 +108,7 @@ type Mutation {
   assignStudentsToLesson(body: AssignStudentToLessonValidate!): Lesson!
   create(body: CreateUserDto!): User!
   createBanner(body: BannerInputDto!): Banner!
+  createCourse(body: CreateCourseInputDto!): Course!
   createLesson(body: LessonValidate!): Lesson!
   createStudent(body: StudentValidate!): Student!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
@@ -77,9 +121,11 @@ type Query {
   banners: [Banner!]!
   getAllLesson: [Lesson!]!
   getAllStudent: [Student!]!
+  getCourse(id: String!): Course!
+  getCourses(limit: String!, page: String!): CoursePaginateDto!
   getLessonById(id: String!): Lesson!
   getStudentById(id: String!): Student!
-  user(username: String!): User!
+  user(id: String!): User!
   users: [User!]!
 }
 
