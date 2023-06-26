@@ -12,6 +12,7 @@ import { CoursePaginateDto } from './dto/course-paginate.dto';
 import { CreateCourseInputDto } from './dto/create-course.dto';
 import { CourseDto } from './dto/course.dto';
 import { Course } from './entities/course.entity';
+import { UpdateCourseInputDto } from './dto/update-course.dto';
 
 @Resolver(() => CourseDto)
 export class CourseResolver {
@@ -33,6 +34,14 @@ export class CourseResolver {
   @Mutation(() => CourseDto)
   createCourse(@Args('body') body: CreateCourseInputDto) {
     return this.courseService.createCourse(body);
+  }
+
+  @Mutation(() => CourseDto)
+  updateCourse(
+    @Args('id') id: string,
+    @Args('body') body: UpdateCourseInputDto,
+  ) {
+    return this.courseService.updateCourse(id, body);
   }
 
   @ResolveField()

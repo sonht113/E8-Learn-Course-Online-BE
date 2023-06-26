@@ -2,18 +2,16 @@ import {
   Column,
   Entity,
   ObjectIdColumn,
-  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  PrimaryColumn,
 } from 'typeorm';
 
 @Entity()
 export class Course {
   @ObjectIdColumn()
-  _id: string;
-
   @PrimaryColumn()
-  id: string;
+  _id: string;
 
   @Column()
   categories: string[];

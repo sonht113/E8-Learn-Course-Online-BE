@@ -1,13 +1,9 @@
 import { Field, ID, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
+import { IsOptional, IsUUID } from 'class-validator';
 
 @InputType()
-export class CreateCourseInputDto {
-  @IsNotEmpty()
-  @Field(() => [String])
-  categories: string[];
-
-  @IsNotEmpty()
+export class UpdateCourseInputDto {
+  @IsOptional()
   @Field()
   title: string;
 
@@ -19,17 +15,17 @@ export class CreateCourseInputDto {
   @Field(() => Number, { defaultValue: 0 })
   totalLecture: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @Field()
-  description: string;
+  description?: string;
 
   @IsOptional()
   @Field(() => String, { defaultValue: '0' })
   price: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @Field()
-  thumbnail: string;
+  thumbnail?: string;
 
   @IsOptional()
   @Field(() => Number, { defaultValue: 0 })
@@ -43,20 +39,15 @@ export class CreateCourseInputDto {
   @Field(() => Number, { defaultValue: 0 })
   totalDislike: number;
 
-  @IsNotEmpty()
-  @Field(() => [String])
-  tags: string[];
-
-  @IsNotEmpty()
+  @IsOptional()
   @Field()
-  isPrivate: boolean;
+  isPrivate?: boolean;
 
   @IsOptional()
   @Field(() => [String], { defaultValue: [] })
   usersJoined: string[];
 
-  @IsUUID(4, { each: true })
   @IsOptional()
-  @Field(() => ID, { defaultValue: '' })
+  @Field(() => String, { defaultValue: '' })
   userCreated: string;
 }

@@ -21,9 +21,9 @@ input BannerInputDto {
 }
 
 type Course {
+  _id: String!
   categories: [String!]!
   description: String!
-  id: ID!
   isFree: Boolean!
   isPrivate: Boolean!
   price: String!
@@ -113,6 +113,7 @@ type Mutation {
   createStudent(body: StudentValidate!): Student!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
   signup(signupUserInput: SignUpUserInputDto!): User!
+  updateCourse(body: UpdateCourseInputDto!, id: String!): Course!
   uploadMultipleFiles(files: [Upload!]!): [ResponseSingleUpload!]!
   uploadSingleFiles(file: Upload!): ResponseSingleUpload!
 }
@@ -158,6 +159,21 @@ type Student {
 input StudentValidate {
   firstName: String!
   lastName: String!
+}
+
+input UpdateCourseInputDto {
+  description: String!
+  isPrivate: Boolean!
+  price: String! = "0"
+  thumbnail: String!
+  title: String!
+  totalChapter: Float! = 0
+  totalDislike: Float! = 0
+  totalLecture: Float! = 0
+  totalLike: Float! = 0
+  totalView: Float! = 0
+  userCreated: String! = ""
+  usersJoined: [String!]! = []
 }
 
 """The `Upload` scalar type represents a file upload."""
