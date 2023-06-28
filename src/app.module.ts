@@ -13,7 +13,7 @@ import { Course } from './route/features/course/entities/course.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.development.env', '.env'],
+      envFilePath: ['.env.development', '.env'],
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
