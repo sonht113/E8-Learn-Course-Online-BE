@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -58,6 +58,13 @@ export class CourseService {
     if (course) {
       course.usersJoined = [...course.usersJoined, ...body.usersJoined];
     }
+    return this.courseRepository.save(course);
+  }
+
+  async updateTitleCourse(id: string, title: string): Promise<any> {
+    const course = await this.getCourseById(id);
+    if (!course) return HttpStatus.NOT_FOUND;
+    course.title = title;
     return this.courseRepository.save(course);
   }
 }

@@ -44,6 +44,11 @@ export class CourseResolver {
     return this.courseService.updateUserJoinInCourse(id, body);
   }
 
+  @Mutation(() => CourseDto)
+  updateTitleCourse(@Args('id') id: string, @Args('title') title: string) {
+    return this.courseService.updateTitleCourse(id, title);
+  }
+
   @ResolveField()
   async userCreated(@Parent() course: Course) {
     return this.userService.getUserById(course.userCreated);

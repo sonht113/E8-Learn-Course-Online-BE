@@ -115,6 +115,7 @@ type Mutation {
   createStudent(body: StudentValidate!): Student!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
   signup(signupUserInput: SignUpUserInputDto!): User!
+  updateTitleCourse(id: String!, title: String!): Course!
   uploadMultipleFiles(files: [Upload!]!): [ResponseSingleUpload!]!
   uploadSingleFiles(file: Upload!): ResponseSingleUpload!
 }
