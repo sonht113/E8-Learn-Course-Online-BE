@@ -2,9 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Lesson } from './route/features/lesson/lesson.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Student } from './route/features/student/student.entity';
 import { User } from './route/features/user/entities/user.entity';
 import { RouteModule } from './route/route.module';
 import { Banner } from './route/features/banner/entities/banner.entity';
@@ -21,7 +19,7 @@ import { Course } from './route/features/course/entities/course.entity';
       url: process.env.DB_URI,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [Lesson, Student, User, Banner, Course],
+      entities: [User, Banner, Course],
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,

@@ -2,11 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input AssignStudentToLessonValidate {
-  lessonId: ID!
-  studentIds: [ID!]!
-}
-
 type Banner {
   description: String!
   id: ID!
@@ -80,21 +75,6 @@ input CreateUserDto {
   username: String!
 }
 
-type Lesson {
-  endDate: String!
-  id: ID!
-  name: String!
-  startDate: String!
-  students: [Student!]!
-}
-
-input LessonValidate {
-  endDate: String!
-  name: String!
-  startDate: String!
-  students: [ID!]! = []
-}
-
 type LoginResponse {
   access_token: String!
   user: User!
@@ -106,13 +86,10 @@ input LoginUserInputDto {
 }
 
 type Mutation {
-  assignStudentsToLesson(body: AssignStudentToLessonValidate!): Lesson!
   assignUserToCourse(body: assignUserToCourseDto!, id: String!): Course!
   create(body: CreateUserDto!): User!
   createBanner(body: BannerInputDto!): Banner!
   createCourse(body: CreateCourseInputDto!): Course!
-  createLesson(body: LessonValidate!): Lesson!
-  createStudent(body: StudentValidate!): Student!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
   signup(signupUserInput: SignUpUserInputDto!): User!
   updateTitleCourse(id: String!, title: String!): Course!
@@ -122,12 +99,8 @@ type Mutation {
 
 type Query {
   banners: [Banner!]!
-  getAllLesson: [Lesson!]!
-  getAllStudent: [Student!]!
   getCourse(id: String!): Course!
   getCourses(limit: String!, page: String!): CoursePaginateDto!
-  getLessonById(id: String!): Lesson!
-  getStudentById(id: String!): Student!
   user(id: String!): User!
   users: [User!]!
 }
@@ -150,17 +123,6 @@ input SignUpUserInputDto {
   phone: String! = ""
   role: String! = "customer"
   username: String!
-}
-
-type Student {
-  firstName: String!
-  id: ID!
-  lastName: String!
-}
-
-input StudentValidate {
-  firstName: String!
-  lastName: String!
 }
 
 """The `Upload` scalar type represents a file upload."""
