@@ -15,6 +15,12 @@ input BannerInputDto {
   title: String!
 }
 
+type Category {
+  id: ID!
+  name: String!
+  totalCourse: Float!
+}
+
 type Course {
   _id: String!
   categories: [String!]!
@@ -40,6 +46,11 @@ type CoursePaginateDto {
   page: String!
   result: [Course!]!
   totalPage: String!
+}
+
+input CreateCategoryInputDto {
+  name: String!
+  totalCourse: Float! = 0
 }
 
 input CreateCourseInputDto {
@@ -89,9 +100,12 @@ type Mutation {
   assignUserToCourse(body: assignUserToCourseDto!, id: String!): Course!
   create(body: CreateUserDto!): User!
   createBanner(body: BannerInputDto!): Banner!
+  createCategory(body: CreateCategoryInputDto!): Category!
   createCourse(body: CreateCourseInputDto!): Course!
+  deleteCategory(id: String!): [Category!]!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
   signup(signupUserInput: SignUpUserInputDto!): User!
+  updateCategory(body: UpdateCategoryInputDto!, id: String!): Category!
   updateTitleCourse(id: String!, title: String!): Course!
   uploadMultipleFiles(files: [Upload!]!): [ResponseSingleUpload!]!
   uploadSingleFiles(file: Upload!): ResponseSingleUpload!
@@ -99,6 +113,8 @@ type Mutation {
 
 type Query {
   banners: [Banner!]!
+  getCategories: [Category!]!
+  getCategoryById(id: String!): Category!
   getCourse(id: String!): Course!
   getCourses(limit: String!, page: String!): CoursePaginateDto!
   user(id: String!): User!
@@ -123,6 +139,11 @@ input SignUpUserInputDto {
   phone: String! = ""
   role: String! = "customer"
   username: String!
+}
+
+input UpdateCategoryInputDto {
+  name: String!
+  totalCourse: Float!
 }
 
 """The `Upload` scalar type represents a file upload."""
