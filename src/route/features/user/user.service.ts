@@ -15,6 +15,16 @@ export class UserService {
     return this.userRepository.find();
   }
 
+  async getManyUserById(ids: string[]): Promise<User[]> {
+    return this.userRepository.find({
+      where: {
+        id: {
+          $in: ids,
+        } as any,
+      },
+    });
+  }
+
   async getUserByEmail(email: string): Promise<User> {
     return this.userRepository.findOne({
       where: {
