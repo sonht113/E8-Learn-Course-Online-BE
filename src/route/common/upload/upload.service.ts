@@ -18,7 +18,7 @@ export class UploadService {
       const buffer = await this.streamToBuffer(createReadStream());
       return this.cloudinary(buffer);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
@@ -34,7 +34,7 @@ export class UploadService {
       );
       return arrayResponse;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
