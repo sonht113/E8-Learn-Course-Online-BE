@@ -1,10 +1,13 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { UserDto } from '../../user/dto/user.dto';
 
 @ObjectType('Course')
 export class CourseDto {
   @Field(() => String)
   _id: string;
+
+  @Field(() => ID)
+  id: string;
 
   @Field(() => [String])
   categories: string[];

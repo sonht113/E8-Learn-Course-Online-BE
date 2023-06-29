@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Course } from './entities/course.entity';
 import { Pagination } from 'src/types/pagination.type';
 import { CreateCourseInputDto } from './dto/create-course.dto';
-import { UpdateCourseInputDto } from './dto/update-course.dto';
-import { ObjectId } from 'mongodb';
+import { assignUserToCourseDto } from './dto/update-course.dto';
 
 @Injectable()
 export class CourseService {
   constructor(
-    @InjectRepository(Course) private courseRepository: MongoRepository<Course>,
+    @InjectRepository(Course) private courseRepository: Repository<Course>,
   ) {}
 
   async getCourses(page?: string, limit?: string): Promise<Pagination<Course>> {
@@ -33,28 +33,31 @@ export class CourseService {
   async getCourseById(id: string): Promise<Course> {
     return this.courseRepository.findOne({
       where: {
-        _id: id,
+        id,
       },
     });
   }
 
   async createCourse(body: CreateCourseInputDto): Promise<Course> {
     return this.courseRepository.save({
+      id: uuid(),
       isFree: Number(body.price) === 0,
       ...body,
     });
   }
 
-  async updateCourse(id: string, body: UpdateCourseInputDto): Promise<Course> {
-    await this.courseRepository.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      body,
-    );
-
-    return this.courseRepository.findOne({
+  async updateUserJoinInCourse(
+    id: string,
+    body: assignUserToCourseDto,
+  ): Promise<Course> {
+    const course = await this.courseRepository.findOne({
       where: {
-        _id: id,
+        id,
       },
     });
+    if (course) {
+      course.usersJoined = [...course.usersJoined, ...body.usersJoined];
+    }
+    return this.courseRepository.save(course);
   }
 }

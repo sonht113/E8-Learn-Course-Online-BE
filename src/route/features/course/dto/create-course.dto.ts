@@ -51,8 +51,9 @@ export class CreateCourseInputDto {
   @Field()
   isPrivate: boolean;
 
+  @IsUUID(4, { each: true })
   @IsOptional()
-  @Field(() => [String], { defaultValue: [] })
+  @Field(() => [ID], { defaultValue: [] })
   usersJoined: string[];
 
   @IsUUID(4, { each: true })

@@ -10,8 +10,10 @@ import {
 @Entity()
 export class Course {
   @ObjectIdColumn()
-  @PrimaryColumn()
   _id: string;
+
+  @PrimaryColumn()
+  id: string;
 
   @Column()
   categories: string[];

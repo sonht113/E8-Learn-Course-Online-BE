@@ -12,7 +12,7 @@ import { CoursePaginateDto } from './dto/course-paginate.dto';
 import { CreateCourseInputDto } from './dto/create-course.dto';
 import { CourseDto } from './dto/course.dto';
 import { Course } from './entities/course.entity';
-import { UpdateCourseInputDto } from './dto/update-course.dto';
+import { assignUserToCourseDto } from './dto/update-course.dto';
 
 @Resolver(() => CourseDto)
 export class CourseResolver {
@@ -37,15 +37,20 @@ export class CourseResolver {
   }
 
   @Mutation(() => CourseDto)
-  updateCourse(
+  assignUserToCourse(
     @Args('id') id: string,
-    @Args('body') body: UpdateCourseInputDto,
+    @Args('body') body: assignUserToCourseDto,
   ) {
-    return this.courseService.updateCourse(id, body);
+    return this.courseService.updateUserJoinInCourse(id, body);
   }
 
   @ResolveField()
   async userCreated(@Parent() course: Course) {
     return this.userService.getUserById(course.userCreated);
+  }
+
+  @ResolveField()
+  async usersJoined(@Parent() course: Course) {
+    return this.userService.getManyUserById(course.usersJoined);
   }
 }
