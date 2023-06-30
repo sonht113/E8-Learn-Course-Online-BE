@@ -23,7 +23,7 @@ type Category {
 
 type Course {
   _id: String!
-  categories: [String!]!
+  categories: [Category!]!
   description: String!
   id: ID!
   isFree: Boolean!
@@ -54,7 +54,7 @@ input CreateCategoryInputDto {
 }
 
 input CreateCourseInputDto {
-  categories: [String!]!
+  categories: [ID!]! = []
   description: String!
   isPrivate: Boolean!
   price: String! = "0"
@@ -106,7 +106,7 @@ type Mutation {
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
   signup(signupUserInput: SignUpUserInputDto!): User!
   updateCategory(body: UpdateCategoryInputDto!, id: String!): Category!
-  updateTitleCourse(id: String!, title: String!): Course!
+  updateCourse(body: updateCourseDto!, id: String!): Course!
   uploadMultipleFiles(files: [Upload!]!): [ResponseSingleUpload!]!
   uploadSingleFiles(file: Upload!): ResponseSingleUpload!
 }
@@ -166,4 +166,17 @@ type User {
 
 input assignUserToCourseDto {
   usersJoined: [ID!]!
+}
+
+input updateCourseDto {
+  categories: [ID!]!
+  description: String!
+  isPrivate: Boolean!
+  price: String!
+  thumbnail: String!
+  title: String!
+  totalChapter: Float!
+  totalLecture: Float!
+  totalLike: Float!
+  totalView: Float!
 }
