@@ -1,11 +1,12 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Course } from './entities/course.entity';
 import { Pagination } from 'src/types/pagination.type';
 import { CreateCourseInputDto } from './dto/create-course.dto';
-import { assignUserToCourseDto } from './dto/update-course.dto';
+import { assignUserToCourseDto } from './dto/assign-user-join-course.dto';
+import { updateCourseDto } from './dto/update-course.dto';
 
 @Injectable()
 export class CourseService {
@@ -31,11 +32,17 @@ export class CourseService {
   }
 
   async getCourseById(id: string): Promise<Course> {
-    return this.courseRepository.findOne({
+    const course = await this.courseRepository.findOne({
       where: {
         id,
       },
     });
+
+    if (!course) {
+      throw new Error('Course not found');
+    }
+
+    return course;
   }
 
   async createCourse(body: CreateCourseInputDto): Promise<Course> {
@@ -50,21 +57,14 @@ export class CourseService {
     id: string,
     body: assignUserToCourseDto,
   ): Promise<Course> {
-    const course = await this.courseRepository.findOne({
-      where: {
-        id,
-      },
-    });
-    if (course) {
-      course.usersJoined = [...course.usersJoined, ...body.usersJoined];
-    }
+    const course = await this.getCourseById(id);
+    course.usersJoined = [...course.usersJoined, ...body.usersJoined];
     return this.courseRepository.save(course);
   }
 
-  async updateTitleCourse(id: string, title: string): Promise<any> {
+  async updateInfoCourse(id: string, body: updateCourseDto): Promise<Course> {
     const course = await this.getCourseById(id);
-    if (!course) return HttpStatus.NOT_FOUND;
-    course.title = title;
+    Object.assign(course, body);
     return this.courseRepository.save(course);
   }
 }

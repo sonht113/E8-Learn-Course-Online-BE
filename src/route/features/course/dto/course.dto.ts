@@ -1,3 +1,4 @@
+import { CategoryDto } from './../../category/dto/category.dto';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { UserDto } from '../../user/dto/user.dto';
 
@@ -9,7 +10,7 @@ export class CourseDto {
   @Field(() => ID)
   id: string;
 
-  @Field(() => [String])
+  @Field(() => [CategoryDto])
   categories: string[];
 
   @Field()

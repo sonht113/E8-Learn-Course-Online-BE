@@ -12,12 +12,15 @@ import { CoursePaginateDto } from './dto/course-paginate.dto';
 import { CreateCourseInputDto } from './dto/create-course.dto';
 import { CourseDto } from './dto/course.dto';
 import { Course } from './entities/course.entity';
-import { assignUserToCourseDto } from './dto/update-course.dto';
+import { assignUserToCourseDto } from './dto/assign-user-join-course.dto';
+import { CategoryService } from '../category/category.service';
+import { updateCourseDto } from './dto/update-course.dto';
 
 @Resolver(() => CourseDto)
 export class CourseResolver {
   constructor(
     private userService: UserService,
+    private categoryService: CategoryService,
     private courseService: CourseService,
   ) {}
 
@@ -45,8 +48,8 @@ export class CourseResolver {
   }
 
   @Mutation(() => CourseDto)
-  updateTitleCourse(@Args('id') id: string, @Args('title') title: string) {
-    return this.courseService.updateTitleCourse(id, title);
+  updateCourse(@Args('id') id: string, @Args('body') body: updateCourseDto) {
+    return this.courseService.updateInfoCourse(id, body);
   }
 
   @ResolveField()
@@ -57,5 +60,10 @@ export class CourseResolver {
   @ResolveField()
   async usersJoined(@Parent() course: Course) {
     return this.userService.getManyUserById(course.usersJoined);
+  }
+
+  @ResolveField()
+  async categories(@Parent() course: Course) {
+    return this.categoryService.getManyCategory(course.categories);
   }
 }

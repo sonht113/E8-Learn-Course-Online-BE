@@ -3,8 +3,9 @@ import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
 
 @InputType()
 export class CreateCourseInputDto {
+  @IsUUID(4, { each: true })
   @IsNotEmpty()
-  @Field(() => [String])
+  @Field(() => [ID], { defaultValue: [] })
   categories: string[];
 
   @IsNotEmpty()
