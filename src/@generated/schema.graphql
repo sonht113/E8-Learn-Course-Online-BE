@@ -21,6 +21,14 @@ type Category {
   totalCourse: Float!
 }
 
+type Chapter {
+  _id: String!
+  course: ID!
+  description: String!
+  id: ID!
+  title: String!
+}
+
 type Course {
   _id: String!
   categories: [Category!]!
@@ -53,6 +61,12 @@ input CreateCategoryInputDto {
   totalCourse: Float! = 0
 }
 
+input CreateChapterDto {
+  course: ID!
+  description: String!
+  title: String!
+}
+
 input CreateCourseInputDto {
   categories: [ID!]! = []
   description: String!
@@ -68,6 +82,15 @@ input CreateCourseInputDto {
   totalView: Float! = 0
   userCreated: ID! = ""
   usersJoined: [ID!]! = []
+}
+
+input CreateLectureInputDto {
+  description: String!
+  id_chapter: ID!
+  id_comment: [ID!]!
+  id_course: ID!
+  title: String!
+  url_video: String!
 }
 
 input CreateUserDto {
@@ -86,6 +109,17 @@ input CreateUserDto {
   username: String!
 }
 
+type Lecture {
+  _id: String!
+  description: String!
+  id: ID!
+  id_chapter: String!
+  id_comment: [ID!]!
+  id_course: ID!
+  title: String!
+  url_video: String!
+}
+
 type LoginResponse {
   access_token: String!
   user: User!
@@ -101,12 +135,18 @@ type Mutation {
   create(body: CreateUserDto!): User!
   createBanner(body: BannerInputDto!): Banner!
   createCategory(body: CreateCategoryInputDto!): Category!
+  createChapter(body: CreateChapterDto!): Chapter!
   createCourse(body: CreateCourseInputDto!): Course!
+  createLecture(body: CreateLectureInputDto!): Lecture!
   deleteCategory(id: String!): [Category!]!
+  deleteChapter(id: String!, idCourse: String!): [Chapter!]!
+  deleteLecture(id: String!): [Lecture!]!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
   signup(signupUserInput: SignUpUserInputDto!): User!
   updateCategory(body: UpdateCategoryInputDto!, id: String!): Category!
+  updateChapter(body: CreateChapterDto!, id: String!): Chapter!
   updateCourse(body: updateCourseDto!, id: String!): Course!
+  updateLecture(body: CreateLectureInputDto!, id: String!): Lecture!
   uploadMultipleFiles(files: [Upload!]!): [ResponseSingleUpload!]!
   uploadSingleFiles(file: Upload!): ResponseSingleUpload!
 }
@@ -117,6 +157,10 @@ type Query {
   getCategoryById(id: String!): Category!
   getCourse(id: String!): Course!
   getCourses(limit: String!, page: String!): CoursePaginateDto!
+  queryAllChapter(idCourse: String!): [Chapter!]!
+  queryAllLecture(idChapter: String!): [Lecture!]!
+  queryChapter(id: String!): Chapter!
+  queryLecture(id: String!): Lecture!
   user(id: String!): User!
   users: [User!]!
 }
