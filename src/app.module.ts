@@ -10,6 +10,7 @@ import { Course } from './route/features/course/entities/course.entity';
 import { Category } from './route/features/category/entities/category.entity';
 import { Chapter } from './route/features/chapter/entities/chapter.entity';
 import { Lecture } from './route/features/lecture/entities/lecture.entity';
+import { Comment } from './route/features/comment/entities/comment.entity';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { Lecture } from './route/features/lecture/entities/lecture.entity';
       url: process.env.DB_URI,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [User, Banner, Course, Category, Chapter, Lecture],
+      entities: [User, Banner, Course, Category, Chapter, Lecture, Comment],
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
