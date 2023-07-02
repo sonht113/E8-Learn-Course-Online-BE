@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Chapter } from './entities/chapter.entity';
 
 @Module({
-  imports: [ChapterService, ChapterResolver],
-  exports: [TypeOrmModule.forFeature([Chapter])],
+  imports: [TypeOrmModule.forFeature([Chapter])],
+  providers: [ChapterService, ChapterResolver],
 })
 export class ChapterModule {}
