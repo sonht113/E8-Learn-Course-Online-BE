@@ -14,9 +14,9 @@ export class CourseService {
     @InjectRepository(Course) private courseRepository: Repository<Course>,
   ) {}
 
-  async getCourses(page?: string, limit?: string): Promise<Pagination<Course>> {
+  async getCourses(page?: number, limit?: number): Promise<Pagination<Course>> {
     const take = Number(limit);
-    const skip = page === '1' ? 0 : Number(page) * Number(limit);
+    const skip = page === 1 ? 0 : page * limit;
 
     const [result, total] = await this.courseRepository.findAndCount({
       take: take,

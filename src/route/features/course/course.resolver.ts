@@ -25,7 +25,7 @@ export class CourseResolver {
   ) {}
 
   @Query(() => CoursePaginateDto)
-  getCourses(@Args('page') page: string, @Args('limit') limit: string) {
+  getCourses(@Args('page') page: number, @Args('limit') limit: number) {
     return this.courseService.getCourses(page, limit);
   }
 

@@ -7,11 +7,11 @@ export class CoursePaginateDto {
   result: CourseDto[];
 
   @Field()
-  page: string;
+  page: number;
 
   @Field()
-  limit: string;
+  limit: number;
 
   @Field()
-  totalPage: string;
+  totalPage: number;
 }
