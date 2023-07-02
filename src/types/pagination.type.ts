@@ -1,15 +1,15 @@
 interface PaginationResultInterface<PaginationEntity> {
   result: PaginationEntity[];
   totalPage: number;
-  page?: string;
-  limit?: string;
+  page?: number;
+  limit?: number;
 }
 
 export class Pagination<PaginationEntity> {
   public result: PaginationEntity[];
   public totalPage: number;
-  public page: string;
-  public limit: string;
+  public page: number;
+  public limit: number;
 
   constructor(paginationResults: PaginationResultInterface<PaginationEntity>) {
     this.result = paginationResults.result;

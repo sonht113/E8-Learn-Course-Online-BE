@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { UserDto } from '../../user/dto/user.dto';
 
 @ObjectType()
 export class CommentDto {
@@ -9,11 +10,14 @@ export class CommentDto {
   id: string;
 
   @Field(() => ID)
-  user_created: string;
+  idLecture: string;
+
+  @Field(() => UserDto)
+  userCreated: string;
 
   @Field(() => String)
   content: string;
 
-  @Field(() => [ID])
-  user_liked: string[];
+  @Field(() => [UserDto])
+  userLiked: string[];
 }

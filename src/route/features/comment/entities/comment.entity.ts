@@ -9,11 +9,14 @@ export class Comment {
   id: string;
 
   @Column()
-  user_created: string;
+  idLecture: string;
+
+  @Column()
+  userCreated: string;
 
   @Column()
   content: string;
 
   @Column()
-  user_liked: string[];
+  userLiked: string[];
 }

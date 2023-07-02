@@ -29,6 +29,22 @@ type Chapter {
   title: String!
 }
 
+type CommentDto {
+  _id: String!
+  content: String!
+  id: ID!
+  idLecture: ID!
+  userCreated: User!
+  userLiked: [User!]!
+}
+
+type CommentPaginateDto {
+  limit: Float!
+  page: Float!
+  result: [CommentDto!]!
+  totalPage: Float!
+}
+
 type Course {
   _id: String!
   categories: [Category!]!
@@ -50,10 +66,10 @@ type Course {
 }
 
 type CoursePaginateDto {
-  limit: String!
-  page: String!
+  limit: Float!
+  page: Float!
   result: [Course!]!
-  totalPage: String!
+  totalPage: Float!
 }
 
 input CreateCategoryInputDto {
@@ -65,6 +81,13 @@ input CreateChapterDto {
   course: ID!
   description: String!
   title: String!
+}
+
+input CreateCommentInputDto {
+  content: String!
+  idLecture: ID!
+  userCreated: ID!
+  userLiked: [ID!]! = []
 }
 
 input CreateCourseInputDto {
@@ -136,15 +159,18 @@ type Mutation {
   createBanner(body: BannerInputDto!): Banner!
   createCategory(body: CreateCategoryInputDto!): Category!
   createChapter(body: CreateChapterDto!): Chapter!
+  createComment(body: CreateCommentInputDto!): CommentDto!
   createCourse(body: CreateCourseInputDto!): Course!
   createLecture(body: CreateLectureInputDto!): Lecture!
   deleteCategory(id: String!): [Category!]!
   deleteChapter(id: String!, idCourse: String!): [Chapter!]!
+  deleteComment(id: String!, limit: Float!, page: Float!): CommentPaginateDto!
   deleteLecture(id: String!): [Lecture!]!
   login(loginUserInput: LoginUserInputDto!): LoginResponse!
   signup(signupUserInput: SignUpUserInputDto!): User!
   updateCategory(body: UpdateCategoryInputDto!, id: String!): Category!
   updateChapter(body: CreateChapterDto!, id: String!): Chapter!
+  updateComment(body: CreateCommentInputDto!, id: String!): CommentDto!
   updateCourse(body: updateCourseDto!, id: String!): Course!
   updateLecture(body: CreateLectureInputDto!, id: String!): Lecture!
   uploadMultipleFiles(files: [Upload!]!): [ResponseSingleUpload!]!
@@ -156,10 +182,11 @@ type Query {
   getCategories: [Category!]!
   getCategoryById(id: String!): Category!
   getCourse(id: String!): Course!
-  getCourses(limit: String!, page: String!): CoursePaginateDto!
+  getCourses(limit: Float!, page: Float!): CoursePaginateDto!
   queryAllChapter(idCourse: String!): [Chapter!]!
   queryAllLecture(idChapter: String!): [Lecture!]!
   queryChapter(id: String!): Chapter!
+  queryComments(idLecture: String!, limit: Float!, page: Float!): CommentPaginateDto!
   queryLecture(id: String!): Lecture!
   user(id: String!): User!
   users: [User!]!
