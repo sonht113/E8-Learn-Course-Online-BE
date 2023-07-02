@@ -5,6 +5,7 @@ import { CourseModule } from './course/course.module';
 import { CategoryModule } from './category/category.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { LectureModule } from './lecture/lecture.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { LectureModule } from './lecture/lecture.module';
     CategoryModule,
     ChapterModule,
     LectureModule,
+    CommentModule,
   ],
 })
 export class FeaturesModule {}
