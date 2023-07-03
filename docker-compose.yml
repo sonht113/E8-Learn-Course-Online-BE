@@ -1,7 +1,8 @@
 version: '3'
 services:
-  web:
+  app:
     image: e8learncourseonline
+    container_name: app
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,9 +13,12 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./:/var/www/app:cached
+      - /var/www/app/node_modules
+    restart: always
   mongodb:
-    image: mongo
-    volumes:
-      - ./data:/data/db
+    container_name: mongodb
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017

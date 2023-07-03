@@ -2,13 +2,13 @@
 FROM node:20.3.1
 
 # Set the working directory inside the container
-WORKDIR /usr/src/app
+WORKDIR /E8-LEARN-COURSE-ONLINE-BE
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 # Install project dependencies
-RUN npm install --legacy-peer-deps
+RUN npm install --force
 
 # Copy the rest of the project files to the working directory
 COPY . .
